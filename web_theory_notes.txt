@@ -1,0 +1,4 @@
+- Restful Api is a kind of intermediary of a frontend and a database
+  - everytime you request data from RESTful api you need to send authentication to server as well.
+	- A webserver creates sessions and saves sessions in server, that is why you can make same authenticated requests from django templates. RESTful api doesn't have that it is stateless.
+
