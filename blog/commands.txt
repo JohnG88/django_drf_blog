@@ -1,0 +1,9 @@
+- --dry-run goes through an initial but doesn't actually apply, good to check afor any problems before you apply any migrations
+- --verbosity 3 gives you more info if there are any problems, can aslo show what is actually being created
+py manage.py makemigrations --dry-run --verbosity 3
+py manage.py runserver
+py manage.py createsuperuser
+pip install coverage
+coverage run --omit='*/venv/*' manage.py test
+coverage html
+pip install djangorestframework
