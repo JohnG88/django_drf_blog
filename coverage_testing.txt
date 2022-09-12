@@ -1,0 +1,6 @@
+- First you install coverage:
+    pip install coverage
+		- can also omit directories(check out commands.txt)
+
+- Then in base directory run coverage html
+    - It will create a new directory htmlcov and it is a directory that has html and javascipt files to run tests on project.
