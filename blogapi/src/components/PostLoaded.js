@@ -1,5 +1,5 @@
 import React from 'react';
-
+//This a wrapper for Posts
 function PostLoading(Component) {
 	return function PostLoadingComponent({isLoading, ...props}) {
     if (!isLoading) return <Component {...props} />

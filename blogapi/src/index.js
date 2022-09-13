@@ -6,6 +6,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Register from'./components/Register';
+import Login from'./components/Login';
+import Logout from'./components/Logout';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
@@ -13,6 +17,9 @@ root.render(
       <Header />
         <Routes>
           <Route path="/" element={<App />} />  
+          <Route path="/register" element={<Register />} />  
+          <Route path="/login" element={<Login />} />  
+          <Route path="/logout" element={<Logout/>} />  
         </Routes>
         <Footer />
       </Router>
