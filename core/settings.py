@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #apps
     'blog',
     'blog_api',
+    'users',
     
     # third-party
     'rest_framework',
@@ -134,8 +135,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ]
+        'rest_framework.permissions.AllowAny',
+    ],
+        
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
 
 CORS_ALLOWED_ORIGINS = [
@@ -144,3 +149,5 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     #"http://localhost:8000",
 ]
+# custom user model
+AUTH_USER_MODEL = 'users.NewUser'
