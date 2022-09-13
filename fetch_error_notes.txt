@@ -1,0 +1,5 @@
+If you see net::ERR_SSL_PROTOCOL_ERROR, it is probably because https or http has been used in url of fetch and it wants the right version.
+
+If you see net::ERR_FAILED, then it is just check to see if in settings.py you have allowed the right url for CORS_ALLOWED_ORIGINS:
+  -usually switching top url to bottom url  "http://127.0.0.1:3000",
+                                            "http://localhost:3000",
