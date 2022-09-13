@@ -1,3 +1,7 @@
+- To login
 curl -X POST http://127.0.0.1:8000/api/token/ -H 'Content-Type: application/json' -d '{"email": "john@gmail.com", "password": "Mexico2018"}'
+
+- To register
+curl -X POST http://127.0.0.1:8000/api/user/register/ -H 'Content-Type: application/json' -d '{"email": "donkey@gmail.com", "user_name": "Donkey", "password": "Theonlydon"}'
 
 
