@@ -29,7 +29,7 @@ function Header() {
 	const [data, setData] = useState({ search: '' });
 
 	const goSearch = (e) => {
-		navigate.push({
+		navigate({
 			// start url with search
 			pathname: '/search/',
 			// build url /?search=whatever is in data.search
