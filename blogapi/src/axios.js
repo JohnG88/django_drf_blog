@@ -6,12 +6,12 @@ const axiosInstance = axios.create({
 	baseURL: baseURL,
 	timeout: 5000,
 	headers: {
-		Authorization: localStorage.getItem('access_token')
-			? 'JWT ' + localStorage.getItem('access_token')
-			: null,
+		Authorization: localStorage.getItem('access_token') ?
+			'JWT ' + localStorage.getItem('access_token') :
+			null,
 		'Content-Type': 'application/json',
 		accept: 'application/json',
-	}, 
+	},
 });
 
 axiosInstance.interceptors.response.use(
@@ -20,12 +20,12 @@ axiosInstance.interceptors.response.use(
 	},
 	async function (error) {
 		const originalRequest = error.config;
-    // if there is error from server
+
 		if (typeof error.response === 'undefined') {
 			alert(
 				'A server/network error occurred. ' +
-					'Looks like CORS might be the problem. ' +
-					'Sorry about this - we will get it fixed shortly.'
+				'Looks like CORS might be the problem. ' +
+				'Sorry about this - we will get it fixed shortly.'
 			);
 			return Promise.reject(error);
 		}
@@ -51,15 +51,16 @@ axiosInstance.interceptors.response.use(
 				// exp date in token is expressed in seconds, while now() returns milliseconds:
 				const now = Math.ceil(Date.now() / 1000);
 				console.log(tokenParts.exp);
-        // refreshing tokens once accees tokens expire
+
 				if (tokenParts.exp > now) {
 					return axiosInstance
-						.post('/token/refresh/', { refresh: refreshToken })
+						.post('/token/refresh/', {
+							refresh: refreshToken
+						})
 						.then((response) => {
-              // update tokens
 							localStorage.setItem('access_token', response.data.access);
 							localStorage.setItem('refresh_token', response.data.refresh);
-              // update headers
+
 							axiosInstance.defaults.headers['Authorization'] =
 								'JWT ' + response.data.access;
 							originalRequest.headers['Authorization'] =
