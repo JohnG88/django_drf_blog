@@ -6,11 +6,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Register from'./components/Register';
-import Login from'./components/Login';
-import Logout from'./components/Logout';
-import Single from'./components/Single';
-import Search from'./components/Search';
+import Register from'./components/auth/Register';
+import Login from'./components/auth/Login';
+import Logout from'./components/auth/Logout';
+import Single from'./components/posts/Single';
+import Search from'./components/posts/Search';
+import Admin from'./Admin';
+import Create from'./components/admin/Create';
+import Edit from'./components/admin/Edit';
+import Delete from'./components/admin/Delete';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,6 +23,10 @@ root.render(
       <Header />
         <Routes>
           <Route path="/" element={<App />} />  
+          <Route path="/admin" element={<Admin />} />  
+          <Route path="/admin/create" element={<Create />} />  
+          <Route path="/admin/edit/:id" element={<Edit />} />  
+          <Route path="/admin/delete/:id" element={<Delete />} />  
           <Route path="/register" element={<Register />} />  
           <Route path="/login" element={<Login />} />  
           <Route path="/logout" element={<Logout/>} />  

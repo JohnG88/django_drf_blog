@@ -1,8 +1,7 @@
-from rest_framework import generics
+from rest_framework import generics, viewsets, filters, permissions
 from blog.models import Post
 from .serializers import PostSerializer
 from rest_framework.permissions import SAFE_METHODS, AllowAny, BasePermission, IsAdminUser, DjangoModelPermissions, IsAuthenticated, IsAuthenticatedOrReadOnly
-from rest_framework import viewsets, filters
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 # Create your views here.
@@ -50,6 +49,28 @@ class PostListDetailFilter(generics.ListAPIView):
     # '=' Exact matches
     # '@' Full-text search. (Currently only supported Django's PostgreSQL backend)
     # '$' Regex search.
+
+class CreatePost(generics.CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class AdminPostDetail(generics.RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class EditPost(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+
+class DeletePost(generics.RetrieveDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+
+
 
 #class PostList(viewsets.ModelViewSet):
 #    permission_classes = [PostUserWritePermission]
