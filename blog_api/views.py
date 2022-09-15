@@ -1,9 +1,13 @@
+from rest_framework.exceptions import status
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import generics, viewsets, filters, permissions
 from blog.models import Post
 from .serializers import PostSerializer
 from rest_framework.permissions import SAFE_METHODS, AllowAny, BasePermission, IsAdminUser, DjangoModelPermissions, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView
+from rest_framework import status
 # Create your views here.
 
 # making custom permissions, to only allow logged in users to edit/delete own posts
@@ -50,10 +54,27 @@ class PostListDetailFilter(generics.ListAPIView):
     # '@' Full-text search. (Currently only supported Django's PostgreSQL backend)
     # '$' Regex search.
 
-class CreatePost(generics.CreateAPIView):
+#class CreatePost(generics.CreateAPIView):
+#    permission_classes = [permissions.IsAuthenticated]
+#    queryset = Post.objects.all()
+#    serializer_class = PostSerializer
+
+
+class CreatePost(APIView):
     permission_classes = [permissions.IsAuthenticated]
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+    # MultiPartParser and FormParser, should be used to fully support html form data
+    parser_classes = [MultiPartParser, FormParser]
+    
+    # format none allows for complex urls
+    def post(self, request, format=None):
+        print(request.data)
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class AdminPostDetail(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated]
